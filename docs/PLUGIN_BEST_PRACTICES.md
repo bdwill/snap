@@ -1,7 +1,7 @@
 ## Best practices in plugin development:
 ### Leverage plugin configurability options
 1.  **Compile time configuration** - use `Plugin.PluginMeta` to define plugin's: name, version, type, accepted and returned content types, concurrency level, exclusiveness, secure communication settings and cache TTL. This type of configuration is usually specified in `main()` in which `plugin.Start()` method is called.
-2. **Run time configuration**
+2. **Runtime configuration**
     - **Global** - This config is useful if configuration data are needed to obtain list of metrics (for example: user names, paths to tools, etc.). Values from Global cofig (as defined in config json) are available in `GetMetricTypes()` method.
     - **Task level** - This config is useful when you need to pass configuration per metric or plugin in order to collect the metrics. Use `GetConfigPolicy()` to set configurable items for plugin. Values from Task config are available in `CollectMetrics()` method.
 
