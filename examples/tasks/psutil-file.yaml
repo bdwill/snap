@@ -6,19 +6,16 @@
   workflow:
     collect:
       metrics:
-        /intel/psutil/load/load1: {}
-        /intel/psutil/load/load15: {}
-        /intel/psutil/load/load5: {}
         /intel/psutil/vm/available: {}
         /intel/psutil/vm/free: {}
         /intel/psutil/vm/used: {}
       config:
-      process:
+      publish:
         -
-          plugin_name: "passthru"
-          process: null
-          publish:
-            -
-              plugin_name: "file"
-              config:
-                file: "/tmp/snap_published_demo_file.log"
+          plugin_name: "influx"
+          config:
+            host: "192.168.99.100"
+            port: 8086
+            database: "snap"
+            user: admin
+            password: db

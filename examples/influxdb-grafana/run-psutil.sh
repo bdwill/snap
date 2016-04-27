@@ -32,16 +32,7 @@ die () {
 type docker-compose >/dev/null 2>&1 || die "Error: docker-compose is required"
 type docker >/dev/null 2>&1 || die "Error: docker is required"
 type netcat >/dev/null 2>&1 || die "Error: netcat is required"
-if type docker-machine >/dev/null 2>&1; then
-	docker-machine active >/dev/null 2>&1 || die "Error: no active docker host found"     
-    dm_ip=$(docker-machine ip $(docker-machine active)) || die
-	if [ "$dm_ip" = "" ]; then 
-		die "Error: Unable to identify IP for your docker-machine.  Make sure that it's started."
-	fi 
-    echo ">>docker machine ip: ${dm_ip}"
-else
-	dm_ip="127.0.0.1"	
-fi
+dm_ip="192.168.64.2"	
 
 #start containers
 docker-compose up -d
