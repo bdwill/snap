@@ -97,20 +97,20 @@ Snap deploys as a binary, which makes requirements quite simple. We've tested on
 You can get the pre-built binaries for your OS and architecture at snap's [GitHub Releases](https://github.com/intelsdi-x/snap/releases) page. This isn't the comprehensive list of plugins. Right now, snap only supports Linux and OS X (Darwin).
 
 ### Running Snap
-We're going to assume you downloaded the latest packaged release of snap and its plugins from here on. If you prefer to build from source, follow the steps in [BUILD_AND_TEST.md](docs/BUILD_AND_TEST.md). 
+We're going to assume you downloaded the latest packaged release of snap and its plugins from here on. If you prefer to build from source, follow the steps in [BUILD_AND_TEST.md](docs/BUILD_AND_TEST.md).
 
-Untar the version of Snap you downloaded and move its binaries, `snapd` and `snapctl`, to a place in your path. Here is an example of doing so (on Linux): 
+Untar the version of Snap you downloaded and move its binaries, `snapd` and `snapctl`, to a place in your path. Here is an example of doing so (on Linux):
 ```
 $ tar -xvf snap-v0.13.0-beta-linux-amd64.tar
 $ mv snap-v0.13.0-beta/bin/* /usr/local/bin/
-$ rm -rf snap-v0.13.0-beta 
+$ rm -rf snap-v0.13.0-beta
 ```
 
 Start a standalone snap agent (`snapd`):
 ```
 $ snapd --plugin-trust 0 --log-level 1
 ```
-This will bring up a snap agent without requiring plugin signing (trust-level 0) and set the logging level to debug (log level 1). Snap's REST API will be listening on port 8181. To learn more about the snap agent and how to use it look at [SNAPD.md](docs/SNAPD.md) and/or run `snapd -h`. 
+This will bring up a snap agent without requiring plugin signing (trust-level 0) and set the logging level to debug (log level 1). Snap's REST API will be listening on port 8181. To learn more about the snap agent and how to use it look at [SNAPD.md](docs/SNAPD.md) and/or run `snapd -h`.
 
 Snap can also be run in a clustered mode called `tribe`. Checkout the [tribe documentation](docs/TRIBE.md) for more info.
 
@@ -121,26 +121,26 @@ After downloading the package (example is on Linux):
 ```
 $ tar -xvf snap-plugins-v0.13.0-beta-linux-amd64.tar.gz
 $ mkdir -p ~/snap/plugins/
-$ mv snap-v0.13.0-beta/plugins/* ~/snap/plugins/
+$ mv snap-v0.13.0-beta/plugin/* ~/snap/plugins/
 $ rm -rf snap-v0.13.0-beta
 ```
 
-Next, load the plugins. This can be achieved through the REST API directly or by using the helper command `snapctl`. 
+Next, load the plugins. This can be achieved through the REST API directly or by using the helper command `snapctl`.
 
 Using the API directly with cURL:
 ```
 $ cd ~/snap/plugins/
-$ curl -X POST -F plugin=@plugin/snap-collector-mock1 http://localhost:8181/v1/plugins
-$ curl -X POST -F plugin=@plugin/snap-processor-passthru http://localhost:8181/v1/plugins
-$ curl -X POST -F plugin=@plugin/snap-publisher-file http://localhost:8181/v1/plugins
+$ curl -X POST -F plugin=@snap-collector-mock1 http://localhost:8181/v1/plugins
+$ curl -X POST -F plugin=@snap-processor-passthru http://localhost:8181/v1/plugins
+$ curl -X POST -F plugin=@snap-publisher-file http://localhost:8181/v1/plugins
 ```
 
-Every interaction with `snapd` can be done through the REST API. To continue using it, see the [API Documentation](docs/REST_API.md). We will continue on using `snapctl`: 
+Every interaction with `snapd` can be done through the REST API. To continue using it, see the [API Documentation](docs/REST_API.md). We will continue on using `snapctl`:
 ```
 $ cd ~/snap/plugins/
-$ snapctl plugin load plugin/snap-collector-mock1
-$ snapctl plugin load plugin/snap-processor-passthru
-$ snapctl plugin load plugin/snap-publisher-file
+$ snapctl plugin load snap-collector-mock1
+$ snapctl plugin load snap-processor-passthru
+$ snapctl plugin load snap-publisher-file
 ```
 
 Let's look at what plugins you have loaded now:
@@ -186,7 +186,7 @@ If the Task ID already scrolled by, you can list it with:
 $ snapctl task list
 ```
 
-Nice work - you're all done with this example. You can continue to run more tasks using the loaded plugins (why not create a new Task Manifest that publishes mock data to another file?). Once you're done familiarizing yourself with the task creation process, stop any running tasks and unload any plugins you no longer wish to use: 
+Nice work - you're all done with this example. You can continue to run more tasks using the loaded plugins (why not create a new Task Manifest that publishes mock data to another file?). Once you're done familiarizing yourself with the task creation process, stop any running tasks and unload any plugins you no longer wish to use:
 ```
 $ snapctl task stop 8b9babad-b3bc-4a16-9e06-1f35664a7679
 $ snapctl plugin unload processor:passthru:1
@@ -238,9 +238,9 @@ Here are blog posts related to Snap by the team:
 
 
 ### Examples
-There are some more complex examples of Snap examples and configuration files under the [Examples folder](examples/README.md). We welcome you adding to it. 
+There are some more complex examples of Snap examples and configuration files under the [Examples folder](examples/README.md). We welcome you adding to it.
 
-There are also interesting examples of using Snap in every plugin repository. For the full list of plugins, review the [Plugin Catalog](docs/PLUGIN_CATALOG.md). 
+There are also interesting examples of using Snap in every plugin repository. For the full list of plugins, review the [Plugin Catalog](docs/PLUGIN_CATALOG.md).
 
 ### Roadmap
 We have a few known features we want to take on from here while we remain open for feedback after public release. They are:
